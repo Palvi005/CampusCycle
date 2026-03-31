@@ -10,15 +10,17 @@
 <style>
   :root {
     --bg: #d3daf6;
-    --surface:lab(73.54% -13.19 -15.84) ;
-    --surface2:#d3daf6;
+    --surface: lab(73.54% -13.19 -15.84);
+    --surface2: #d3daf6;
     --border: rgba(0, 0, 0, 0.05);
-    --accent: #10b981; /* Premium Mint */
+    --accent: #10b981; 
     --accent-soft: rgba(16, 185, 129, 0.1);
     --text-main: #0f172a;
     --text-muted: #64748b;
     --font-display: 'Outfit', sans-serif;
     --font-body: 'Inter', sans-serif;
+    /* Jiggle curve */
+    --jiggle-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -68,7 +70,6 @@
     color: var(--text-main);
     text-decoration: none;
   }
-
   .logo span { color: var(--accent); }
 
   .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
@@ -86,7 +87,9 @@
     color: #fff !important;
     padding: 8px 20px;
     border-radius: 50px;
+    transition: all 0.4s var(--jiggle-bounce);
   }
+  .nav-cta:hover { transform: scale(1.1); background: var(--accent); }
 
   /* ── HERO ── */
   .hero {
@@ -148,13 +151,17 @@
     border-radius: 12px;
     font-weight: 600;
     text-decoration: none;
-    transition: 0.3s;
+    transition: all 0.4s var(--jiggle-bounce);
     border: none;
     cursor: pointer;
     box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+    display: inline-block;
   }
 
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); }
+  .btn-primary:hover { 
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3); 
+  }
 
   .btn-secondary {
     background: white;
@@ -178,12 +185,10 @@
   .stat-num span { color: var(--accent); }
   .stat-label { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-  /* ── SECTION STYLING ── */
   section { padding: 100px 24px; position: relative; z-index: 1; }
   .section-label { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 2px; margin-bottom: 16px; display: block; text-align: center; }
   .section-title { font-family: var(--font-display); font-size: clamp(30px, 5vw, 48px); text-align: center; margin-bottom: 60px; letter-spacing: -0.02em; }
 
-  /* ── BENTO STEPS ── */
   .cycle-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -204,7 +209,6 @@
   .step-title { font-family: var(--font-display); font-weight: 700; margin-bottom: 12px; }
   .step-desc { color: var(--text-muted); font-size: 14px; }
 
-  /* ── FEATURES GRID ── */
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -222,7 +226,6 @@
   }
   .feature-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
 
-  /* ── REUSE SCORE ── */
   .score-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -247,7 +250,6 @@
   .score-items { display: flex; justify-content: space-between; gap: 15px; margin-top: 30px; }
   .score-item { background: var(--bg); padding: 15px; border-radius: 16px; flex: 1; text-align: center; }
 
-  /* ── FOOTER ── */
   footer {
     padding: 60px 24px;
     background: var(--text-main);
@@ -256,7 +258,6 @@
   }
   .footer-logo { color: white; font-family: var(--font-display); font-size: 24px; margin-bottom: 20px; }
 
-  /* ── ANIMATIONS ── */
   .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -277,7 +278,7 @@
     <li><a href="#how">Process</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#score">Score</a></li>
-    <li><a href="#join" class="nav-cta">Login</a></li>
+    <li><a href="login and signup.html" class="nav-cta">Login</a></li>
   </ul>
 </nav>
 
@@ -291,7 +292,7 @@
     The verified campus platform where you list, borrow, and pass items forward. Reduce waste and save money, one semester at a time.
   </p>
   <div class="hero-actions">
-    <a href="#join" class="btn-primary">Login</a>
+    <a href="login and signup.html" class="btn-primary">Login</a>
     <a href="#how" class="btn-secondary">Learn More</a>
   </div>
 
@@ -345,22 +346,22 @@
       <span class="section-label" style="text-align:left;">Reuse Score</span>
       <h2 class="section-title" style="text-align:left; margin-bottom:20px;">Your impact, quantified.</h2>
       <p style="color:var(--text-muted); margin-bottom:30px;">Every contribution increases your campus standing. High scores grant priority access to premium items like scientific calculators and textbooks.</p>
-      <a href="#join" class="btn-primary">Start Building Score</a>
+      <a href="login and signup.html?action=signup" class="btn-primary">Start Building Score</a>
     </div>
     <div class="score-visual reveal">
-       <div style="display:flex; align-items:center; gap:15px;">
-         <div style="width:45px; height:45px; background:var(--accent); border-radius:50%;"></div>
-         <div><strong>Arjun Sharma</strong><br/><small>IKGPTU Kpt• CSE</small></div>
-       </div>
-       <div class="score-big">
-         <div class="score-number">847</div>
-         <div class="score-label">Reuse Score</div>
-       </div>
-       <div class="score-items">
-         <div class="score-item"><strong>23</strong><br/>Shared</div>
-         <div class="score-item"><strong>14</strong><br/>Borrowed</div>
-         <div class="score-item"><strong>31</strong><br/>Passed</div>
-       </div>
+        <div style="display:flex; align-items:center; gap:15px;">
+          <div style="width:45px; height:45px; background:var(--accent); border-radius:50%;"></div>
+          <div><strong>Arjun Sharma</strong><br/><small>IKGPTU Kpt• CSE</small></div>
+        </div>
+        <div class="score-big">
+          <div class="score-number">847</div>
+          <div class="score-label">Reuse Score</div>
+        </div>
+        <div class="score-items">
+          <div class="score-item"><strong>23</strong><br/>Shared</div>
+          <div class="score-item"><strong>14</strong><br/>Borrowed</div>
+          <div class="score-item"><strong>31</strong><br/>Passed</div>
+        </div>
     </div>
   </div>
 </section>
