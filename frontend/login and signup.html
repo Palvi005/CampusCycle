@@ -1,110 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>CampusCycle — Join the Movement</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
-<link rel="stylesheet" href="style.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusCycle — Join the Movement</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="auth-body">
 
-<canvas id="bg-canvas"></canvas>
+  <canvas id="bg-canvas"></canvas>
 
-<div class="auth-card" id="tilt-card">
-  <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 30px;">Campus<span>Cycle</span></a>
-  
-  <div id="login-form">
-    <h2>Welcome Back</h2>
-    <p class="subtitle">Log in to your student account</p>
-    <form>
-      <div class="form-group">
-        <label>Email ID</label>
-        <input type="email" placeholder="name@gmail.com" required>
-      </div>
-      <div class="form-group">
-        <label>University ID</label>
-        <input type="text" placeholder="Roll Number" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" required>
-      </div>
-      <a href="#" style="display:block; text-align:right; font-size:12px; color:var(--text-muted); text-decoration:none; margin-bottom:15px; font-weight:600;">Forgot Password?</a>
-      <button type="submit" class="btn-submit">Sign In</button>
-    </form>
-    <p class="toggle-text">Don't have an account? <span onclick="toggleAuth()">Create one</span></p>
+  <div class="auth-card" id="tilt-card">
+    <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 30px;">
+      Campus<span>Cycle</span>
+    </a>
+
+    <!-- LOGIN -->
+    <div id="login-form">
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Log in to your student account</p>
+
+      <form onsubmit="loginUser(event)">
+        <div class="form-group">
+          <label>Email ID</label>
+          <input type="email" id="loginEmail" required>
+        </div>
+
+        <div class="form-group">
+          <label>University ID</label>
+          <input type="text" id="loginRoll" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="loginPassword" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Sign In</button>
+      </form>
+
+      <p class="toggle-text">
+        Don't have an account? <span onclick="toggleAuth()">Create one</span>
+      </p>
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="signup-form" style="display:none;">
+      <h2>Join the Cycle</h2>
+      <p class="subtitle">Complete your student profile</p>
+
+      <form onsubmit="signupUser(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Roll No</label>
+          <input type="text" id="roll" required>
+        </div>
+
+        <div class="form-group">
+          <label>Course</label>
+          <input type="text" id="course" required>
+        </div>
+
+        <div class="form-group">
+          <label>Semester</label>
+          <input type="text" id="semester" required>
+        </div>
+
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required>
+        </div>
+
+        <button type="submit" class="btn-submit">Register Now</button>
+      </form>
+
+      <p class="toggle-text">
+        Already a member? <span onclick="toggleAuth()">Log In</span>
+      </p>
+    </div>
   </div>
 
-  <div id="signup-form" style="display:none;">
-    <h2>Join the Cycle</h2>
-    <p class="subtitle">Complete your student profile</p>
-    <form>
-      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your Name" required></div>
-      <div class="form-group"><label>Roll No / ID</label><input type="text" placeholder="e.g. 2024CS101" required></div>
-      <div class="form-group"><label>Course</label><input type="text" placeholder="Course Name" required></div>
-      <div class="form-group"><label>Semester</label><input type="text" placeholder="e.g. 4th Semester" required></div>
-      <div class="form-group"><label>Contact Number</label><input type="tel" placeholder="+91 XXXXX XXXXX" required></div>
-      <div class="form-group"><label>Email ID</label><input type="email" placeholder="abc@university.edu" required></div>
-      <button type="submit" class="btn-submit">Register Now</button>
-    </form>
-    <p class="toggle-text">Already a member? <span onclick="toggleAuth()">Log In</span></p>
-  </div>
-</div>
+  <script>
+    /* ================= BACKEND CONNECTION ================= */
 
-<script>
-  /* Same scripts as before for Particles, Tilt, and Toggle */
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  window.addEventListener('resize', resize);
-  resize();
+    // LOGIN FUNCTION
+    function loginUser(event) {
+      event.preventDefault();
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2 + 1;
-      this.speedX = Math.random() * 0.8 - 0.4;
-      this.speedY = Math.random() * 0.8 - 0.4;
+      const data = {
+        email: document.getElementById("loginEmail").value,
+        roll: document.getElementById("loginRoll").value,
+        password: document.getElementById("loginPassword").value
+      };
+
+      fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          if (msg === "Login successful") {
+            window.location.href = "index.html";
+          }
+        })
+        .catch(err => console.log(err));
     }
-    update() {
-      this.x += this.speedX; this.y += this.speedY;
-      if (this.x > canvas.width) this.x = 0; else if (this.x < 0) this.x = canvas.width;
-      if (this.y > canvas.height) this.y = 0; else if (this.y < 0) this.y = canvas.height;
+
+
+    // SIGNUP FUNCTION
+    function signupUser(event) {
+      event.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        roll: document.getElementById("roll").value,
+        course: document.getElementById("course").value,
+        semester: document.getElementById("semester").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+      };
+
+      fetch("http://localhost:5000/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+        .then(res => res.text())
+        .then(msg => {
+          alert(msg);
+          toggleAuth();
+        })
+        .catch(err => console.log(err));
     }
-    draw() {
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.3)';
-      ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill();
-    }
-  }
-  for (let i = 0; i < 60; i++) particles.push(new Particle());
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animate);
-  }
-  animate();
 
-  const card = document.getElementById('tilt-card');
-  document.addEventListener('mousemove', (e) => {
-    let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-    let yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-    card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-  });
 
-  document.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
+    /* ================= UI LOGIC ================= */
 
-  function toggleAuth() {
-    const login = document.getElementById('login-form');
-    const signup = document.getElementById('signup-form');
-    login.style.opacity = "0";
-    signup.style.opacity = "0";
-    setTimeout(() => {
+    function toggleAuth() {
+      const login = document.getElementById('login-form');
+      const signup = document.getElementById('signup-form');
+
       if (login.style.display === "none") {
         login.style.display = "block";
         signup.style.display = "none";
@@ -112,10 +173,56 @@
         login.style.display = "none";
         signup.style.display = "block";
       }
-      login.style.opacity = "1";
-      signup.style.opacity = "1";
-    }, 200);
-  }
-</script>
+    }
+
+
+    /* ================= PARTICLES ================= */
+
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = Math.random() * 0.8 - 0.4;
+        this.speedY = Math.random() * 0.8 - 0.4;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(16, 185, 129, 0.3)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+  </script>
+
 </body>
+
 </html>
