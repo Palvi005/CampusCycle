@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Portal — CampusCycle</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+</head>
+<body class="seller-wrapper">
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="form-panel">
+    <a href="afterlogin.html" class="back-btn">← BACK TO DASHBOARD</a>
+    
+    <div style="max-width: 480px;">
+        <h1>What are you <br><span style="color:#10b981">passing on?</span></h1>
+        <p style="color:#64748b; margin-bottom: 30px;">Fill in the details to list your item instantly.</p>
+
+        <form id="listingForm">
+            <label class="modern-label">Item Name</label>
+            <input type="text" id="in-name" class="modern-input" placeholder="e.g. Mechanical Drafter" onkeyup="sync()">
+
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 1;">
+                    <label class="modern-label">Category</label>
+                    <select class="modern-input">
+                        <option>Stationery</option>
+                        <option>Electronics</option>
+                        <option>Lab Gear</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label class="modern-label">Condition</label>
+                    <select class="modern-input">
+                        <option>New</option>
+                        <option>Used</option>
+                    </select>
+                </div>
+            </div>
+
+            <label class="modern-label">Listing Type</label>
+            <div class="pill-container">
+                <label style="flex:1">
+                    <input type="radio" name="m" value="s" checked style="display:none" onclick="togglePrice(true)">
+                    <div class="pill-item">💰 Sell</div>
+                </label>
+                <label style="flex:1">
+                    <input type="radio" name="m" value="l" style="display:none" onclick="togglePrice(false)">
+                    <div class="pill-item">🤝 Lend</div>
+                </label>
+            </div>
+
+            <div id="price-wrap">
+                <label class="modern-label">Asking Price (₹)</label>
+                <input type="number" id="in-price" class="modern-input" placeholder="0.00" onkeyup="sync()">
+            </div>
+
+            <button type="submit" style="background:#10b981; color:white; border:none; width:100%; padding:20px; border-radius:16px; font-weight:800; cursor:pointer; font-size:16px; margin-top:10px; box-shadow: 0 15px 30px rgba(16,185,129,0.2);">
+                Publish Listing
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="preview-panel">
+    <span style="position: absolute; top: 40px; color:rgba(255,255,255,0.3); font-size:10px; letter-spacing:3px; font-weight:800;">LIVE PREVIEW</span>
+
+    <div class="floating-preview">
+        <div class="img-box" id="img-prev">
+            <span style="font-size: 50px; opacity: 0.2;">📸</span>
+        </div>
+        <h2 id="p-title" style="font-family:'Outfit'; font-size: 28px; margin:0 0 10px 0;">Item Title</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span id="p-price" style="font-size: 24px; font-weight: 800; color: #10b981;">₹ 0</span>
+            <span style="background:rgba(16,185,129,0.2); color:#10b981; padding:6px 14px; border-radius:20px; font-size:10px; font-weight:800;">VERIFIED</span>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <input type="file" id="file" hidden onchange="readImg(event)">
+        <button type="button" onclick="document.getElementById('file').click()" style="background:rgba(255,255,255,0.05); color:white; border:1px solid rgba(255,255,255,0.1); padding:14px 28px; border-radius:12px; cursor:pointer; font-weight:600; font-size:14px;">Upload Item Photo</button>
+    </div>
+</div>
+
+<script>
+    function sync() {
+        const n = document.getElementById('in-name').value;
+        const p = document.getElementById('in-price').value;
+        const isSell = document.querySelector('input[name="m"]:checked').value === 's';
+        document.getElementById('p-title').innerText = n || "Item Title";
+        document.getElementById('p-price').innerText = isSell ? (p ? "₹ " + p : "₹ 0") : "Score +250";
+    }
+
+    function togglePrice(s) {
+        document.getElementById('price-wrap').style.opacity = s ? '1' : '0';
+        document.getElementById('price-wrap').style.pointerEvents = s ? 'all' : 'none';
+        sync();
+    }
+
+    function readImg(e) {
+        const r = new FileReader();
+        r.onload = () => {
+            document.getElementById('img-prev').innerHTML = `<img src="${r.result}">`;
+        };
+        r.readAsDataURL(e.target.files[0]);
+    }
+
+    // Background particles
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class P {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.s = Math.random() * 2;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+            ctx.fillStyle = '#10b981';
+            ctx.globalAlpha = 0.2;
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill();
+        }
+    }
+    for(let i=0; i<50; i++) particles.push(new P());
+    function animate() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+
+</body>
+</html>

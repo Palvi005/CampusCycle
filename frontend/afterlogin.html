@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard — CampusCycle</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="dashboard-container">
+    <div style="margin-bottom: 40px;">
+        <a href="index.html" class="logo" style="justify-content: center; font-size: 32px;">Campus<span>Cycle</span></a>
+    </div>
+    
+    <div class="hero-badge">Verified Student Access</div>
+    <h1 class="hero-headline">What would you like<br><span class="line2">to do today?</span></h1>
+    
+    <div class="dashboard-grid">
+        
+        <div class="option-card reveal">
+            <div class="option-icon">🛒</div>
+            <h3>Borrow / Buy</h3>
+            <p>Looking for a lab coat or a calculator? Browse items available near you.</p>
+            <a href="buyer.html" class="card-btn">Go to Marketplace</a>
+        </div>
+
+        <div class="option-card reveal">
+            <div class="option-icon">💰</div>
+            <h3>Sell / Lend</h3>
+            <p>List your items to earn cash or build your Reuse Score points.</p>
+            <a href="seller.html" class="card-btn">Start Listing</a>
+        </div>
+
+        <div class="option-card featured reveal">
+            <div class="special-badge">Most Impactful</div>
+            
+            <div class="option-icon">🎁</div>
+            <h3>Pass it Forward</h3>
+            <p>Finished with a book? Donate it to a junior for free and help the community.</p>
+            
+            <span class="bonus-tag">✨ Earn +500 Reuse Score points</span>
+            
+            <a href="donation.html" class="card-btn" style="background: var(--accent);">Donate Now</a>
+        </div>
+
+    </div> <a href="index.html" class="logout-btn">← Back to home</a>
+</div>
+
+<script>
+    /* ── PARTICLE BACKGROUND EFFECT ── */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+        }
+        update() {
+            this.x += this.speedX; this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+        }
+    }
+    for(let i=0; i<50; i++) particles.push(new Particle());
+    function animate() {
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* ── SCROLL REVEAL ANIMATION ── */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
