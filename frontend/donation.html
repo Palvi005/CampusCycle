@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Gear — CampusCycle</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+</head>
+<body class="donation-body">
+
+    <section class="donation-hero">
+        <a href="afterlogin.html" class="back-link-white">← Back to Hub</a>
+        <h1 class="hero-title">Give Back to <span class="highlight-text">Campus</span></h1>
+        <p class="hero-subtitle">Turn your "Old" into someone's "New."</p>
+    </section>
+
+    <div class="impact-card">
+        <div class="impact-stat border-right">
+            <h3>120+</h3>
+            <p>Total Donated</p>
+        </div>
+        <div class="impact-stat">
+            <h3 id="currentScore" class="score-color">2,400</h3>
+            <p>Your Reuse Score</p>
+        </div>
+        <div class="impact-stat border-left">
+            <h3>15</h3>
+            <p>Active Donors</p>
+        </div>
+    </div>
+
+    <div class="donor-grid">
+        <div class="give-card" onclick="openDonationFlow()">
+            <span class="icon-lg">🎁</span>
+            <h3>Donate Something</h3>
+            <p>List an item for ₹ 0</p>
+        </div>
+
+        <div class="product-card-lite">
+            <div class="item-img-lite">📚</div>
+            <div class="item-info-lite">
+                <span class="free-badge">FREE</span>
+                <h4>Engineering Physics II</h4>
+                <p>Latest edition, minimal highlights. Passing it on to a junior!</p>
+                <button class="claim-btn" onclick="alert('Claim request sent!')">Claim Item</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="congratsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="confetti-icon">🏆</div>
+            <h2 class="modal-title">You're a Hero!</h2>
+            <p class="modal-text">Your generosity just made the campus more sustainable.</p>
+            
+            <div class="bonus-badge">
+                <span class="bonus-label">Bonus Earned</span>
+                <span class="bonus-points">+500</span>
+                <p class="bonus-subtext">Reuse Score</p>
+            </div>
+
+            <button onclick="closeCongrats()" class="modal-confirm-btn">Awesome!</button>
+        </div>
+    </div>
+
+    <script>
+        function openDonationFlow() {
+            // Display the Congrats Modal
+            document.getElementById('congratsModal').style.display = 'flex';
+        }
+
+        function closeCongrats() {
+            document.getElementById('congratsModal').style.display = 'none';
+            // Redirect to the seller page to complete the listing
+            window.location.href = 'seller.html';
+        }
+    </script>
+
+</body>
+</html>
