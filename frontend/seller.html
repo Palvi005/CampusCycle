@@ -12,23 +12,22 @@
 <canvas id="bg-canvas"></canvas>
 
 <div class="form-panel">
-    <a href="afterlogin.html" class="back-btn">← BACK TO DASHBOARD</a>
-    
-    <div style="max-width: 480px;">
+    <div style="max-width: 480px; width: 100%;">
         <h1>What are you <br><span style="color:#10b981">passing on?</span></h1>
-        <p style="color:#64748b; margin-bottom: 30px;">Fill in the details to list your item instantly.</p>
+        <p style="color:#64748b; margin-bottom: 25px; font-size: 15px;">Fill in the details to list your item instantly.</p>
 
         <form id="listingForm">
             <label class="modern-label">Item Name</label>
             <input type="text" id="in-name" class="modern-input" placeholder="e.g. Mechanical Drafter" onkeyup="sync()">
 
-            <div style="display: flex; gap: 20px;">
+            <div style="display: flex; gap: 15px;">
                 <div style="flex: 1;">
                     <label class="modern-label">Category</label>
                     <select class="modern-input">
                         <option>Stationery</option>
                         <option>Electronics</option>
                         <option>Lab Gear</option>
+                        <option>Others</option>
                     </select>
                 </div>
                 <div style="flex: 1;">
@@ -40,24 +39,15 @@
                 </div>
             </div>
 
-            <label class="modern-label">Listing Type</label>
-            <div class="pill-container">
-                <label style="flex:1">
-                    <input type="radio" name="m" value="s" checked style="display:none" onclick="togglePrice(true)">
-                    <div class="pill-item">💰 Sell</div>
-                </label>
-                <label style="flex:1">
-                    <input type="radio" name="m" value="l" style="display:none" onclick="togglePrice(false)">
-                    <div class="pill-item">🤝 Lend</div>
-                </label>
-            </div>
+            <label class="modern-label">Description</label>
+            <textarea id="in-desc" class="modern-input" rows="3" placeholder="Briefly describe the item's history..." style="resize: none;" onkeyup="sync()"></textarea>
 
             <div id="price-wrap">
                 <label class="modern-label">Asking Price (₹)</label>
                 <input type="number" id="in-price" class="modern-input" placeholder="0.00" onkeyup="sync()">
             </div>
 
-            <button type="submit" style="background:#10b981; color:white; border:none; width:100%; padding:20px; border-radius:16px; font-weight:800; cursor:pointer; font-size:16px; margin-top:10px; box-shadow: 0 15px 30px rgba(16,185,129,0.2);">
+            <button type="submit" style="background:#10b981; color:white; border:none; width:100%; padding:18px; border-radius:14px; font-weight:800; cursor:pointer; font-size:16px; margin-top:5px; box-shadow: 0 10px 25px rgba(16,185,129,0.2);">
                 Publish Listing
             </button>
         </form>
@@ -71,49 +61,54 @@
         <div class="img-box" id="img-prev">
             <span style="font-size: 50px; opacity: 0.2;">📸</span>
         </div>
-        <h2 id="p-title" style="font-family:'Outfit'; font-size: 28px; margin:0 0 10px 0;">Item Title</h2>
+        
+        <h2 id="p-title" style="font-family:'Outfit'; font-size: 24px; margin:0 0 8px 0;">Item Title</h2>
+        
+        <p id="p-desc" style="font-size: 13px; color: rgba(255,255,255,0.5); margin: 0 0 15px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+            No description provided.
+        </p>
+
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span id="p-price" style="font-size: 24px; font-weight: 800; color: #10b981;">₹ 0</span>
+            <span id="p-price" style="font-size: 22px; font-weight: 800; color: #10b981;">₹ 0</span>
             <span style="background:rgba(16,185,129,0.2); color:#10b981; padding:6px 14px; border-radius:20px; font-size:10px; font-weight:800;">VERIFIED</span>
         </div>
     </div>
 
     <div style="margin-top: 40px;">
         <input type="file" id="file" hidden onchange="readImg(event)">
-        <button type="button" onclick="document.getElementById('file').click()" style="background:rgba(255,255,255,0.05); color:white; border:1px solid rgba(255,255,255,0.1); padding:14px 28px; border-radius:12px; cursor:pointer; font-weight:600; font-size:14px;">Upload Item Photo</button>
+        <button type="button" onclick="document.getElementById('file').click()" style="background:rgba(255,255,255,0.05); color:white; border:1px solid rgba(255,255,255,0.1); padding:12px 24px; border-radius:12px; cursor:pointer; font-weight:600; font-size:13px;">Add Real Photo</button>
     </div>
 </div>
 
 <script>
+    // Sync Form Data to Preview Card
     function sync() {
-        const n = document.getElementById('in-name').value;
-        const p = document.getElementById('in-price').value;
-        const isSell = document.querySelector('input[name="m"]:checked').value === 's';
-        document.getElementById('p-title').innerText = n || "Item Title";
-        document.getElementById('p-price').innerText = isSell ? (p ? "₹ " + p : "₹ 0") : "Score +250";
+        const name = document.getElementById('in-name').value;
+        const price = document.getElementById('in-price').value;
+        const desc = document.getElementById('in-desc').value;
+        
+        document.getElementById('p-title').innerText = name || "Item Title";
+        document.getElementById('p-price').innerText = price ? "₹ " + price : "₹ 0";
+        document.getElementById('p-desc').innerText = desc || "No description provided.";
     }
 
-    function togglePrice(s) {
-        document.getElementById('price-wrap').style.opacity = s ? '1' : '0';
-        document.getElementById('price-wrap').style.pointerEvents = s ? 'all' : 'none';
-        sync();
-    }
-
+    // Handle Image Selection
     function readImg(e) {
         const r = new FileReader();
         r.onload = () => {
             document.getElementById('img-prev').innerHTML = `<img src="${r.result}">`;
         };
-        r.readAsDataURL(e.target.files[0]);
+        if(e.target.files[0]) r.readAsDataURL(e.target.files[0]);
     }
 
-    // Background particles
+    // Particle Background System
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
     function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
     window.addEventListener('resize', resize);
     resize();
+
     class P {
         constructor() {
             this.x = Math.random() * canvas.width;
@@ -133,7 +128,7 @@
             ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill();
         }
     }
-    for(let i=0; i<50; i++) particles.push(new P());
+    for(let i=0; i<40; i++) particles.push(new P());
     function animate() {
         ctx.clearRect(0,0,canvas.width, canvas.height);
         particles.forEach(p => { p.update(); p.draw(); });

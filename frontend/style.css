@@ -566,9 +566,9 @@ input:focus { outline: none; background: white; transform: translateZ(30px) scal
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden; /* Stops any scrolling */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Prevents scrolling */
     font-family: 'Inter', sans-serif;
 }
 
@@ -588,12 +588,13 @@ body, html {
     padding: 0 8%;
     position: relative;
     z-index: 2;
+    box-shadow: 20px 0 60px rgba(0,0,0,0.02);
 }
 
 /* RIGHT SIDE: PREVIEW */
 .preview-panel {
     flex: 0.9;
-    background: #0f172a; /* Cinematic Navy */
+    background: #0f172a; 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -602,26 +603,12 @@ body, html {
     color: white;
 }
 
-/* ELEMENTS */
-.back-btn {
-    position: absolute;
-    top: 40px;
-    left: 8%;
-    text-decoration: none;
-    color: #94a3b8;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 1px;
-    transition: 0.3s;
-}
-.back-btn:hover { color: #10b981; }
-
 .form-panel h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 48px;
+    font-size: 42px;
     margin: 0 0 10px 0;
     color: #1e293b;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
 }
 
 .modern-label {
@@ -637,12 +624,13 @@ body, html {
     width: 100%;
     background: #f1f5f9;
     border: 2px solid transparent;
-    padding: 16px 20px;
+    padding: 14px 20px;
     border-radius: 14px;
-    font-size: 16px;
-    margin-bottom: 20px;
+    font-size: 15px;
+    margin-bottom: 15px;
     transition: 0.3s;
     box-sizing: border-box;
+    font-family: inherit;
 }
 
 .modern-input:focus {
@@ -652,56 +640,33 @@ body, html {
     box-shadow: 0 10px 30px rgba(16, 185, 129, 0.1);
 }
 
-.pill-container {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.pill-item {
-    flex: 1;
-    text-align: center;
-    padding: 14px;
-    background: #f1f5f9;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: 0.3s;
-}
-
-input[type="radio"]:checked + .pill-item {
-    background: #10b981;
-    color: white;
-}
-
 /* FLOATING PREVIEW CARD */
 .floating-preview {
     width: 100%;
-    max-width: 380px;
+    max-width: 360px;
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 40px;
-    padding: 30px;
-    box-shadow: 0 50px 100px rgba(0,0,0,0.4);
-    animation: float 5s ease-in-out infinite;
+    border-radius: 35px;
+    padding: 25px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-1deg); }
-    50% { transform: translateY(-15px) rotate(1deg); }
+    0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+    50% { transform: translateY(-15px) rotate(0.5deg); }
 }
 
 .img-box {
     width: 100%;
-    aspect-ratio: 1/1;
+    aspect-ratio: 1.2 / 1;
     background: rgba(255,255,255,0.05);
-    border-radius: 25px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     overflow: hidden;
 }
 
