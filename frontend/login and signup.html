@@ -7,174 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
-<style>
-  :root {
-    --bg: #d3daf6;
-    --surface: rgba(255, 255, 255, 0.55);
-    --border: rgba(255, 255, 255, 0.7);
-    --accent: #10b981;
-    --text-main: #0f172a;
-    --text-muted: #475569;
-    --jiggle-bounce: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-  }
 
-  body {
-    background-color: var(--bg);
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Crucial for long forms */
-    min-height: 100vh;
-    margin: 0;
-    overflow-y: auto; /* Enable scrolling */
-    perspective: 1200px;
-    padding: 60px 20px;
-  }
-
-  #bg-canvas { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; }
-
-  /* ── JIGGLY 3D CARD ── */
-  .auth-card {
-    background: var(--surface);
-    backdrop-filter: blur(25px) saturate(180%);
-    border: 1px solid var(--border);
-    border-radius: 40px; 
-    padding: 45px;
-    width: 100%;
-    max-width: 480px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-    position: relative;
-    z-index: 10;
-    margin: auto;
-    transform-style: preserve-3d;
-    animation: floatJiggle 6s ease-in-out infinite;
-    transition: transform 0.4s var(--jiggle-bounce);
-  }
-
-  @keyframes floatJiggle {
-    0%, 100% { transform: translateY(0px) rotateX(0deg); }
-    50% { transform: translateY(-8px) rotateX(1deg); }
-  }
-
-  .logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 800;
-    font-size: 26px;
-    text-decoration: none;
-    color: var(--text-main);
-    margin-bottom: 30px;
-    transform: translateZ(50px);
-  }
-  .logo span { color: var(--accent); }
-
-  h2 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 28px;
-    text-align: center;
-    transform: translateZ(40px);
-    margin-bottom: 6px;
-  }
-
-  .subtitle {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 14px;
-    margin-bottom: 30px;
-    transform: translateZ(30px);
-  }
-
-  /* ── INPUTS ── */
-  .form-group { margin-bottom: 18px; transform-style: preserve-3d; }
-
-  label {
-    display: block;
-    font-size: 11px;
-    font-weight: 800;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transform: translateZ(20px);
-    color: var(--text-main);
-  }
-
-  input {
-    width: 100%;
-    padding: 14px 18px;
-    border-radius: 15px;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: rgba(255,255,255,0.4);
-    transition: all 0.4s var(--jiggle-bounce);
-    transform: translateZ(15px);
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-
-  input:focus {
-    outline: none;
-    background: white;
-    transform: translateZ(30px) scale(1.03);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-    border-color: var(--accent);
-  }
-
-  .btn-submit {
-    width: 100%;
-    background: var(--text-main);
-    color: white;
-    padding: 16px;
-    border: none;
-    border-radius: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.4s var(--jiggle-bounce);
-    margin-top: 10px;
-    transform: translateZ(40px);
-  }
-
-  .btn-submit:hover {
-    background: var(--accent);
-    transform: translateZ(55px) translateY(-3px);
-  }
-
-  .btn-submit:active { transform: translateZ(20px) scale(0.95); }
-
-  .forgot-link {
-    display: block;
-    text-align: right;
-    font-size: 12px;
-    color: var(--text-muted);
-    text-decoration: none;
-    margin-bottom: 15px;
-    transform: translateZ(20px);
-    font-weight: 600;
-  }
-
-  .toggle-text {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 13px;
-    color: var(--text-muted);
-    transform: translateZ(15px);
-  }
-  .toggle-text span { color: var(--accent); font-weight: 800; cursor: pointer; }
-
-  #signup-form { display: none; }
-
-  /* Smooth scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="auth-body">
 
 <canvas id="bg-canvas"></canvas>
 
 <div class="auth-card" id="tilt-card">
-  <a href="#" class="logo">Campus<span>Cycle</span></a>
+  <a href="index.html" class="logo" style="justify-content: center; margin-bottom: 30px;">Campus<span>Cycle</span></a>
   
   <div id="login-form">
     <h2>Welcome Back</h2>
@@ -192,40 +33,22 @@
         <label>Password</label>
         <input type="password" placeholder="••••••••" required>
       </div>
-      <a href="#" class="forgot-link">Forgot Password?</a>
+      <a href="#" style="display:block; text-align:right; font-size:12px; color:var(--text-muted); text-decoration:none; margin-bottom:15px; font-weight:600;">Forgot Password?</a>
       <button type="submit" class="btn-submit">Sign In</button>
     </form>
     <p class="toggle-text">Don't have an account? <span onclick="toggleAuth()">Create one</span></p>
   </div>
 
-  <div id="signup-form">
+  <div id="signup-form" style="display:none;">
     <h2>Join the Cycle</h2>
     <p class="subtitle">Complete your student profile</p>
     <form>
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" placeholder="Your Name" required>
-      </div>
-      <div class="form-group">
-        <label>Roll No / ID</label>
-        <input type="text" placeholder="e.g. 2024CS101" required>
-      </div>
-      <div class="form-group">
-        <label>Course</label>
-        <input type="text" placeholder="Course Name" required>
-      </div>
-      <div class="form-group">
-        <label>Semester</label>
-        <input type="text" placeholder="e.g. 4th Semester" required>
-      </div>
-      <div class="form-group">
-        <label>Contact Number</label>
-        <input type="tel" placeholder="+91 XXXXX XXXXX" required>
-      </div>
-      <div class="form-group">
-        <label>Email ID</label>
-        <input type="email" placeholder="abc@university.edu" required>
-      </div>
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your Name" required></div>
+      <div class="form-group"><label>Roll No / ID</label><input type="text" placeholder="e.g. 2024CS101" required></div>
+      <div class="form-group"><label>Course</label><input type="text" placeholder="Course Name" required></div>
+      <div class="form-group"><label>Semester</label><input type="text" placeholder="e.g. 4th Semester" required></div>
+      <div class="form-group"><label>Contact Number</label><input type="tel" placeholder="+91 XXXXX XXXXX" required></div>
+      <div class="form-group"><label>Email ID</label><input type="email" placeholder="abc@university.edu" required></div>
       <button type="submit" class="btn-submit">Register Now</button>
     </form>
     <p class="toggle-text">Already a member? <span onclick="toggleAuth()">Log In</span></p>
@@ -233,7 +56,7 @@
 </div>
 
 <script>
-  /* ── BACKGROUND PARTICLES ── */
+  /* Same scripts as before for Particles, Tilt, and Toggle */
   const canvas = document.getElementById('bg-canvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -267,7 +90,6 @@
   }
   animate();
 
-  /* ── TILT EFFECT ── */
   const card = document.getElementById('tilt-card');
   document.addEventListener('mousemove', (e) => {
     let xAxis = (window.innerWidth / 2 - e.pageX) / 25;
@@ -275,19 +97,13 @@
     card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
   });
 
-  document.addEventListener('mouseleave', () => {
-    card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-  });
+  document.addEventListener('mouseleave', () => { card.style.transform = `rotateY(0deg) rotateX(0deg)`; });
 
-  /* ── TOGGLE FUNCTION ── */
   function toggleAuth() {
     const login = document.getElementById('login-form');
     const signup = document.getElementById('signup-form');
-    
-    // Smooth fade
     login.style.opacity = "0";
     signup.style.opacity = "0";
-    
     setTimeout(() => {
       if (login.style.display === "none") {
         login.style.display = "block";
@@ -301,6 +117,5 @@
     }, 200);
   }
 </script>
-
 </body>
 </html>
