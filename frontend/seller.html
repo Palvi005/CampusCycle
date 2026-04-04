@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Seller Portal — CampusCycle</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="seller-wrapper">
 
-<canvas id="bg-canvas"></canvas>
+    <canvas id="bg-canvas"></canvas>
 
-<div class="form-panel">
-    <div style="max-width: 480px; width: 100%;">
-        <h1>What are you <br><span style="color:#10b981">passing on?</span></h1>
-        <p style="color:#64748b; margin-bottom: 25px; font-size: 15px;">Fill in the details to list your item instantly.</p>
+    <div class="form-panel">
+        <div style="max-width: 480px; width: 100%;">
+            <h1>What are you <br><span style="color:#10b981">passing on?</span></h1>
+            <p style="color:#64748b; margin-bottom: 25px; font-size: 15px;">Fill in the details to list your item
+                instantly.</p>
 
-        <form id="listingForm">
+           <form id="listingForm">
             <label class="modern-label">Item Name</label>
-            <input type="text" id="in-name" class="modern-input" placeholder="e.g. Mechanical Drafter" onkeyup="sync()">
-
+            <input type="text" id="in-name" class="modern-input" placeholder="e.g. Mechanical Drafter" onkeyup="sync()"
+                required>
+        
             <div style="display: flex; gap: 15px;">
                 <div style="flex: 1;">
                     <label class="modern-label">Category</label>
-                    <select class="modern-input">
+                    <select id="in-category" class="modern-input">
                         <option>Stationery</option>
                         <option>Electronics</option>
                         <option>Lab Gear</option>
@@ -32,114 +37,118 @@
                 </div>
                 <div style="flex: 1;">
                     <label class="modern-label">Condition</label>
-                    <select class="modern-input">
+                    <select id="in-condition" class="modern-input">
                         <option>New</option>
                         <option>Used</option>
                     </select>
                 </div>
             </div>
-
+        
             <label class="modern-label">Description</label>
-            <textarea id="in-desc" class="modern-input" rows="3" placeholder="Briefly describe the item's history..." style="resize: none;" onkeyup="sync()"></textarea>
-
+            <textarea id="in-desc" class="modern-input" rows="3" placeholder="Briefly describe the item's history..."
+                style="resize: none;" onkeyup="sync()"></textarea>
+        
             <div id="price-wrap">
                 <label class="modern-label">Asking Price (₹)</label>
-                <input type="number" id="in-price" class="modern-input" placeholder="0.00" onkeyup="sync()">
+                <input type="number" id="in-price" class="modern-input" placeholder="0.00" onkeyup="sync()" required>
             </div>
-
-           
-            <a href="dashboard.html">
-  <button type="button" style="background:#10b981; color:white; border:none; width:100%; padding:18px; border-radius:14px; font-weight:800; cursor:pointer; font-size:16px; margin-top:5px; box-shadow: 0 10px 25px rgba(16,185,129,0.2);">
-    Publish Listing
-  </button>
-</a>
+            <div class="preview-panel">
+                <div class="floating-preview">
+                    <div class="img-box" id="img-prev"
+                        style="width:100%; height:200px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; overflow:hidden; border-radius:15px;">
+                        <span style="font-size: 50px; opacity: 0.2;">📸</span>
+                    </div>
+            
+                    <h2 id="p-title" style="font-family:'Outfit'; font-size: 24px; margin:8px 0;">Item Title</h2>
+                    <p id="p-desc" style="font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 15px;">No description
+                        provided.</p>
+            
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span id="p-price" style="font-size: 22px; font-weight: 800; color: #10b981;">₹ 0</span>
+                        <span
+                            style="background:rgba(16,185,129,0.2); color:#10b981; padding:6px 14px; border-radius:20px; font-size:10px; font-weight:800;">VERIFIED</span>
+                    </div>
+                </div>
+            
+                <div style="margin-top: 20px; text-align: center;">
+                    <input type="file" id="file-input" hidden onchange="readImg(event)" accept="image/*">
+                    <button type="button" onclick="document.getElementById('file-input').click()"
+                        style="background:rgba(255,255,255,0.1); color:white; border:1px solid rgba(255,255,255,0.2); padding:12px 24px; border-radius:12px; cursor:pointer; font-weight:600;">
+                        ✨ Add Real Photo
+                    </button>
+                </div>
+            </div>
+        
+            <button type="button" onclick="submitListing()"
+                style="background:#10b981; color:white; border:none; width:100%; padding:18px; border-radius:14px; font-weight:800; cursor:pointer; font-size:16px; margin-top:5px; box-shadow: 0 10px 25px rgba(16,185,129,0.2);">
+                Publish Listing
+            </button>
         </form>
-    </div>
-</div>
-
-<div class="preview-panel">
-    <span style="position: absolute; top: 40px; color:rgba(255,255,255,0.3); font-size:10px; letter-spacing:3px; font-weight:800;">LIVE PREVIEW</span>
-
-    <div class="floating-preview">
-        <div class="img-box" id="img-prev">
-            <span style="font-size: 50px; opacity: 0.2;">📸</span>
-        </div>
         
-        <h2 id="p-title" style="font-family:'Outfit'; font-size: 24px; margin:0 0 8px 0;">Item Title</h2>
-        
-        <p id="p-desc" style="font-size: 13px; color: rgba(255,255,255,0.5); margin: 0 0 15px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-            No description provided.
-        </p>
+        <script>
+            const API = "http://localhost:5000";
+            let base64Image = ""; // Variable to store the uploaded image string
 
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span id="p-price" style="font-size: 22px; font-weight: 800; color: #10b981;">₹ 0</span>
-            <span style="background:rgba(16,185,129,0.2); color:#10b981; padding:6px 14px; border-radius:20px; font-size:10px; font-weight:800;">VERIFIED</span>
-        </div>
-    </div>
+            // 1. Sync Text to Preview
+            function sync() {
+                document.getElementById('p-title').innerText = document.getElementById('in-name').value || "Item Title";
+                document.getElementById('p-price').innerText = "₹ " + (document.getElementById('in-price').value || "0");
+                document.getElementById('p-desc').innerText = document.getElementById('in-desc').value || "No description provided.";
+            }
 
-    <div style="margin-top: 40px;">
-        <input type="file" id="file" hidden onchange="readImg(event)">
-        <button type="button" onclick="document.getElementById('file').click()" style="background:rgba(255,255,255,0.05); color:white; border:1px solid rgba(255,255,255,0.1); padding:12px 24px; border-radius:12px; cursor:pointer; font-weight:600; font-size:13px;">Add Real Photo</button>
-    </div>
-</div>
+            // 2. Handle Image Upload & Show Preview
+            function readImg(e) {
+                const file = e.target.files[0];
+                if (!file) return;
 
+                const reader = new FileReader();
+                reader.onload = () => {
+                    base64Image = reader.result; // Save the image data
+                    const imgBox = document.getElementById('img-prev');
+                    imgBox.innerHTML = `<img src="${base64Image}" style="width:100%; height:100%; object-fit:cover;">`;
+                };
+                reader.readAsDataURL(file);
+            }
 
-<script>
-    // Sync Form Data to Preview Card
-    function sync() {
-        const name = document.getElementById('in-name').value;
-        const price = document.getElementById('in-price').value;
-        const desc = document.getElementById('in-desc').value;
-        
-        document.getElementById('p-title').innerText = name || "Item Title";
-        document.getElementById('p-price').innerText = price ? "₹ " + price : "₹ 0";
-        document.getElementById('p-desc').innerText = desc || "No description provided.";
-    }
+            // 3. Submit to Backend
+            async function submitListing() {
+                const name = document.getElementById('in-name').value;
+                const price = document.getElementById('in-price').value;
 
-    // Handle Image Selection
-    function readImg(e) {
-        const r = new FileReader();
-        r.onload = () => {
-            document.getElementById('img-prev').innerHTML = `<img src="${r.result}">`;
-        };
-        if(e.target.files[0]) r.readAsDataURL(e.target.files[0]);
-    }
+                if (!name || !price) {
+                    alert("Please enter at least a Name and Price!");
+                    return;
+                }
 
-    // Particle Background System
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-    window.addEventListener('resize', resize);
-    resize();
+                const itemData = {
+                    title: name,
+                    price: price,
+                    category: document.getElementById('in-category').value,
+                    condition: document.getElementById('in-condition').value,
+                    desc: document.getElementById('in-desc').value,
+                    img: base64Image || "📦" // Send the image or a box emoji if empty
+                };
 
-    class P {
-        constructor() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.s = Math.random() * 2;
-            this.vx = (Math.random() - 0.5) * 0.3;
-            this.vy = (Math.random() - 0.5) * 0.3;
-        }
-        update() {
-            this.x += this.vx; this.y += this.vy;
-            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-        }
-        draw() {
-            ctx.fillStyle = '#10b981';
-            ctx.globalAlpha = 0.2;
-            ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill();
-        }
-    }
-    for(let i=0; i<40; i++) particles.push(new P());
-    function animate() {
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        requestAnimationFrame(animate);
-    }
-    animate();
-</script>
+                try {
+                    const response = await fetch(`${API}/add-item`, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(itemData)
+                    });
+
+                    if (response.ok) {
+                        alert("Success! Your item is now live.");
+                        window.location.href = "dashboard.html";
+                    } else {
+                        alert("Server rejected the listing.");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Connection Error: Is your server.js running on port 5000?");
+                }
+            }
+        </script>
 
 </body>
+
 </html>

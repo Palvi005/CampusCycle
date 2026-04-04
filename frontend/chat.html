@@ -1,38 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Messages — CampusCycle</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap"
+        rel="stylesheet">
     <style>
         /* IN-PAGE OVERRIDES FOR TRANSACTION FLOW */
-        .transaction-tray { background: #fffbeb; border-bottom: 1px solid #fde68a; padding: 15px 30px; }
-        .tray-content { display: flex; justify-content: space-between; align-items: center; }
-        .tray-content p { margin: 0; font-weight: 700; font-size: 14px; color: #92400e; }
-        .tray-btn-primary { background: #1e293b; color: white; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-        .meet-inputs { display: flex; gap: 10px; width: 100%; }
-        .meet-inputs input { flex: 1; padding: 12px; border: 1px solid #fde68a; border-radius: 10px; font-size: 13px; }
-        .tray-btn-success { background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-        .qr-notice { display: flex; align-items: center; gap: 15px; width: 100%; }
-        .view-qr-btn { margin-left: auto; background: #fff; border: 1px solid #d1d5db; padding: 8px 15px; border-radius: 10px; font-weight: 700; cursor: pointer; }
-        
+        .transaction-tray {
+            background: #fffbeb;
+            border-bottom: 1px solid #fde68a;
+            padding: 15px 30px;
+        }
+
+        .tray-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tray-content p {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+            color: #92400e;
+        }
+
+        .tray-btn-primary {
+            background: #1e293b;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .meet-inputs {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .meet-inputs input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #fde68a;
+            border-radius: 10px;
+            font-size: 13px;
+        }
+
+        .tray-btn-success {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .qr-notice {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .view-qr-btn {
+            margin-left: auto;
+            background: #fff;
+            border: 1px solid #d1d5db;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         /* MODAL STYLING */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); }
-        .modal-content { background: white; width: 320px; margin: 10% auto; padding: 35px; border-radius: 35px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
-        .qr-box { margin: 25px 0; padding: 20px; background: #f8fafc; border-radius: 20px; display: inline-block; border: 2px solid #f1f5f9; }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: white;
+            width: 320px;
+            margin: 10% auto;
+            padding: 35px;
+            border-radius: 35px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .qr-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 20px;
+            display: inline-block;
+            border: 2px solid #f1f5f9;
+        }
     </style>
 </head>
+
 <body class="chat-body">
 
     <div class="chat-wrapper">
         <aside class="chat-sidebar">
-            <div class="sidebar-header"><h2>Messages</h2></div>
+            <div class="sidebar-header">
+                <h2>Messages</h2>
+            </div>
             <div class="convos-list">
                 <div class="convo-item active">
                     <div class="avatar">JS</div>
-                    <div class="convo-info"><h4>John Smith</h4><p>Scientific Calculator...</p></div>
+                    <div class="convo-info">
+                        <h4>John Smith</h4>
+                        <p>Scientific Calculator...</p>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -42,11 +137,17 @@
                 <div class="seller-profile">
                     <a href="product-details.html" style="text-decoration:none; margin-right:10px;">←</a>
                     <div class="avatar-sm">JS</div>
-                    <div><h4>John Smith</h4><p class="status">Online</p></div>
+                    <div>
+                        <h4>John Smith</h4>
+                        <p class="status">Online</p>
+                    </div>
                 </div>
                 <div class="item-snippet">
                     <div class="snippet-thumb">📸</div>
-                    <div><p class="snippet-title">Scientific Calculator</p><p class="snippet-price">₹ 800</p></div>
+                    <div>
+                        <p class="snippet-title">Scientific Calculator</p>
+                        <p class="snippet-price">₹ 800</p>
+                    </div>
                 </div>
             </header>
 
@@ -69,7 +170,8 @@
                         <span style="font-size:24px;">✅</span>
                         <div>
                             <p><strong>Deal is Pending</strong></p>
-                            <p style="font-size: 11px; font-weight:400; color:#92400e;">Show the QR code to buyer during handover.</p>
+                            <p style="font-size: 11px; font-weight:400; color:#92400e;">Show the QR code to buyer during
+                                handover.</p>
                         </div>
                         <button class="view-qr-btn" onclick="toggleModal(true)">View QR Code</button>
                     </div>
@@ -78,11 +180,13 @@
 
             <div class="message-feed" id="chatFeed">
                 <div class="msg-bubble system">You are chatting with John Smith about 'Scientific Calculator'</div>
-                <div class="msg-bubble received">Hey! I saw your listing. I need this for my Math-III exam tomorrow.</div>
+                <div class="msg-bubble received">Hey! I saw your listing. I need this for my Math-III exam tomorrow.
+                </div>
             </div>
 
             <footer class="chat-input-area">
-                <input type="text" placeholder="Type a message..." id="msgInput" onkeypress="if(event.key==='Enter') sendMessage()">
+                <input type="text" placeholder="Type a message..." id="msgInput"
+                    onkeypress="if(event.key==='Enter') sendMessage()">
                 <button class="send-btn" onclick="sendMessage()">Send</button>
             </footer>
         </main>
@@ -110,7 +214,7 @@
         function generateQR() {
             const loc = document.getElementById('meetPlace').value;
             const time = document.getElementById('meetTime').value;
-            if(!loc || !time) return alert("Please fill meeting details");
+            if (!loc || !time) return alert("Please fill meeting details");
 
             // Update QR Image using API
             const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=CampusCycle_Sale_Verified_${Date.now()}`;
@@ -125,7 +229,7 @@
                     Time: ${time}<br><br>
                     <i>I'll show you the QR code when we meet to confirm.</i>
                 </div>`;
-            
+
             showStage('stage-qr');
             feed.scrollTop = feed.scrollHeight;
         }
@@ -136,7 +240,7 @@
 
         function sendMessage() {
             const input = document.getElementById('msgInput');
-            if(!input.value) return;
+            if (!input.value) return;
             const feed = document.getElementById('chatFeed');
             feed.innerHTML += `<div class="msg-bubble sent">${input.value}</div>`;
             input.value = "";
@@ -144,4 +248,5 @@
         }
     </script>
 </body>
+
 </html>

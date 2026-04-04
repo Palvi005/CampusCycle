@@ -1,31 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verify & Pay — CampusCycle</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Outfit:wght@800&display=swap"
+        rel="stylesheet">
     <style>
-        .scanner-body { background: #0f172a; color: white; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; text-align: center; }
-        
+        .scanner-body {
+            background: #0f172a;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-align: center;
+        }
+
         /* Camera Simulation */
-        .scan-window { width: 280px; height: 280px; border: 4px solid #10b981; border-radius: 40px; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 40px; box-shadow: 0 0 50px rgba(16, 185, 129, 0.3); }
-        .scan-line { position: absolute; width: 100%; height: 4px; background: #10b981; top: 0; animation: scan-move 2s infinite; box-shadow: 0 0 15px #10b981; }
-        
-        @keyframes scan-move { 0% { top: 0; } 50% { top: 100%; } 100% { top: 0; } }
+        .scan-window {
+            width: 280px;
+            height: 280px;
+            border: 4px solid #10b981;
+            border-radius: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            box-shadow: 0 0 50px rgba(16, 185, 129, 0.3);
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #10b981;
+            top: 0;
+            animation: scan-move 2s infinite;
+            box-shadow: 0 0 15px #10b981;
+        }
+
+        @keyframes scan-move {
+            0% {
+                top: 0;
+            }
+
+            50% {
+                top: 100%;
+            }
+
+            100% {
+                top: 0;
+            }
+        }
 
         /* Payment Card */
-        .payment-card { background: white; color: #1e293b; width: 90%; max-width: 400px; padding: 30px; border-radius: 30px; display: none; animation: slide-up 0.5s ease-out; }
-        @keyframes slide-up { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .payment-card {
+            background: white;
+            color: #1e293b;
+            width: 90%;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 30px;
+            display: none;
+            animation: slide-up 0.5s ease-out;
+        }
 
-        .pay-btn { background: #10b981; color: white; border: none; width: 100%; padding: 18px; border-radius: 16px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 20px; }
-        
+        @keyframes slide-up {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .pay-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 16px;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
         /* Success Screen */
-        .success-screen { display: none; }
-        .confetti { font-size: 50px; margin-bottom: 20px; }
+        .success-screen {
+            display: none;
+        }
+
+        .confetti {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
+
 <body class="scanner-body">
 
     <div id="step-scan">
@@ -35,12 +117,15 @@
         </div>
         <h2 style="font-family: 'Outfit';">Scanning Handover QR</h2>
         <p style="color: #64748b;">Point your camera at the seller's screen</p>
-        <button onclick="processScan()" style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer;">Simulate Scan</button>
+        <button onclick="processScan()"
+            style="margin-top: 30px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer;">Simulate
+            Scan</button>
     </div>
 
     <div id="step-pay" class="payment-card">
         <div style="text-align: left;">
-            <span style="color: #10b981; font-weight: 800; font-size: 12px; text-transform: uppercase;">Verified Handover</span>
+            <span style="color: #10b981; font-weight: 800; font-size: 12px; text-transform: uppercase;">Verified
+                Handover</span>
             <h2 style="font-family: 'Outfit'; margin: 5px 0;">Scientific Calculator</h2>
             <p style="color: #64748b; font-size: 14px;">Seller: John Smith</p>
             <hr style="border: 0; border-top: 1px solid #f1f5f9; margin: 20px 0;">
@@ -56,7 +141,9 @@
         <div class="confetti">🎉</div>
         <h1 style="font-family: 'Outfit'; color: #10b981;">Purchase Successful!</h1>
         <p style="padding: 0 40px; color: #94a3b8;">Item ownership transferred. <br>Seller has been notified.</p>
-        <a href="buyer.html" style="display: inline-block; margin-top: 30px; color: white; text-decoration: none; font-weight: 700; border-bottom: 2px solid #10b981;">Back to Marketplace</a>
+        <a href="buyer.html"
+            style="display: inline-block; margin-top: 30px; color: white; text-decoration: none; font-weight: 700; border-bottom: 2px solid #10b981;">Back
+            to Marketplace</a>
     </div>
 
     <script>
@@ -73,7 +160,7 @@
 
             // Mock Notification to Seller
             console.log("NOTIFICATION TO SELLER: Item 'Scientific Calculator' SOLD for ₹ 800!");
-            
+
             // Optional: Alert simulating the seller's phone
             setTimeout(() => {
                 alert("🔔 Seller Notification: Item Sold! ₹800 added to your balance.");
@@ -81,4 +168,5 @@
         }
     </script>
 </body>
+
 </html>
